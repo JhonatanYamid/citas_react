@@ -1,17 +1,13 @@
-image: node:16.13.1 # change to match your project's node version
-
-cache:
-  paths:
-    - node_modules/
-
-before_script:
-  - rm -rf build
-  - CI=false npm install
+image: node:16.13.1
 
 pages:
   stage: deploy
+  cache:
+    paths:
+      - node_modules/
   script:
-    - CI=false npm run build
+    - npm install
+    - npm run build
     - rm -rf public
     - cp build/index.html build/404.html
     - mv build public
